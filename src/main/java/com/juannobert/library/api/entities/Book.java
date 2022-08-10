@@ -1,9 +1,6 @@
 package com.juannobert.library.api.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,12 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable{
+@Table(name = "tb_book")
+public class Book implements Serializable{
 	
 
 	private static final long serialVersionUID = 1L;
@@ -30,27 +27,28 @@ public class User implements Serializable{
 	
 	private String name;
 	
-	private String email;
+	private String publishingCompany;
 	
-	private String password;
+	@ManyToOne
+	@JoinColumn(name = "author_id")
+	private Author author;
 	
 	@ManyToMany
-	@JoinTable(name = "tb_user_role",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
+	@JoinTable(name = "tb_book_category",
+			joinColumns = @JoinColumn(name = "book_id"),
+			inverseJoinColumns = @JoinColumn(name = "category_id"))
+	private Set<Category> categories;
 	
-	@OneToMany(mappedBy = "user")
-	private List<Loan> loans = new ArrayList<>();
 	
-	public User() {
+	public Book() {
 	}
 
-	public User(Long id, String name, String email, String password) {
+	public Book(Long id, String name, String publishingCompany, Author author) {
+		super();
 		this.id = id;
 		this.name = name;
-		this.email = email;
-		this.password = password;
+		this.publishingCompany = publishingCompany;
+		this.author = author;
 	}
 
 	public Long getId() {
@@ -69,25 +67,20 @@ public class User implements Serializable{
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPublishingCompany() {
+		return publishingCompany;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPublishingCompany(String publishingCompany) {
+		this.publishingCompany = publishingCompany;
 	}
 
-	public String getPassword() {
-		return password;
+	public Author getAuthor() {
+		return author;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
-	public Set<Role> getRoles() {
-		return roles;
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 
 	@Override
@@ -103,10 +96,9 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Book other = (Book) obj;
 		return Objects.equals(id, other.id);
 	}
 	
 	
-
 }
