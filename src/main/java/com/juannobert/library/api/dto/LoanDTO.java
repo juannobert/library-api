@@ -17,7 +17,7 @@ public class LoanDTO implements Serializable{
 
 	private Date returnDate;
 
-	private List<Book> books = new ArrayList<>();
+	private List<BookDTO> books = new ArrayList<>();
 
 	private Long userId;
 	
@@ -41,7 +41,7 @@ public class LoanDTO implements Serializable{
 	public LoanDTO(Loan entity,List<Book> books) {
 		this(entity);
 		books.stream()
-			.forEach(book -> new BookDTO(book));
+			.forEach(book -> this.books.add(new BookDTO(book)));
 	}
 
 	public Long getId() {
@@ -76,7 +76,7 @@ public class LoanDTO implements Serializable{
 		this.userId = userId;
 	}
 
-	public List<Book> getBooks() {
+	public List<BookDTO> getBooks() {
 		return books;
 	}
 	
