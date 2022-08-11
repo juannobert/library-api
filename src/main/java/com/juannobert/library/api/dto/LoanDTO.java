@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import com.juannobert.library.api.entities.Book;
 import com.juannobert.library.api.entities.Loan;
@@ -39,7 +38,7 @@ public class LoanDTO implements Serializable{
 		this.userId = entity.getUser().getId();
 	}
 	
-	public LoanDTO(Loan entity,Set<Book> books) {
+	public LoanDTO(Loan entity,List<Book> books) {
 		this(entity);
 		books.stream()
 			.forEach(book -> new BookDTO(book));
