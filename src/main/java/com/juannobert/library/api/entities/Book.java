@@ -83,6 +83,11 @@ public class Book implements Serializable{
 		this.author = author;
 	}
 
+	
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

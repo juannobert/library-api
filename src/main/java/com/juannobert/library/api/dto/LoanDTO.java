@@ -41,7 +41,7 @@ public class LoanDTO implements Serializable{
 	public LoanDTO(Loan entity,List<Book> books) {
 		this(entity);
 		books.stream()
-			.forEach(book -> this.books.add(new BookDTO(book)));
+			.forEach(book -> this.books.add(new BookDTO(book,book.getCategories())));
 	}
 
 	public Long getId() {

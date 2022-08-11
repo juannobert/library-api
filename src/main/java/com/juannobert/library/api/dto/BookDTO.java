@@ -1,6 +1,7 @@
 package com.juannobert.library.api.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.juannobert.library.api.entities.Book;
@@ -17,7 +18,7 @@ public class BookDTO implements Serializable{
 
 	private Long authorId;
 
-	private Set<CategoryDTO> categories;
+	private Set<CategoryDTO> categories = new HashSet<>();
 
 	public BookDTO(Long id, String name, String publishingCompany, Long authorId) {
 		this.id = id;
@@ -36,7 +37,7 @@ public class BookDTO implements Serializable{
 	public BookDTO(Book entity,Set<Category> categories) {
 		this(entity);
 		categories.stream()
-			.forEach(cat -> new CategoryDTO(cat));
+			.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
 	}
 
 	public Long getId() {
