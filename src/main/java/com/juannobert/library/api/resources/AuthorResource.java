@@ -31,11 +31,11 @@ public class AuthorResource {
 	
 	@PostMapping
 	public ResponseEntity<AuthorDTO> insert(@RequestBody AuthorDTO dto){
-		AuthorDTO userDTO = service.save(dto);
+		AuthorDTO authorDTO = service.save(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(userDTO.getId()).toUri();
+				.buildAndExpand(authorDTO.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(userDTO);	
+		return ResponseEntity.created(uri).body(authorDTO);	
 	}
 
 }

@@ -25,6 +25,7 @@ public class AuthorService {
 	}
 	
 	
+	@Transactional
 	public AuthorDTO save(AuthorDTO dto) {
 		Author entity = new Author();
 		BeanUtils.copyProperties(dto, entity,"id");

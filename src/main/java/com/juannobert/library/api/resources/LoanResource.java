@@ -31,11 +31,11 @@ public class LoanResource {
 	
 	@PostMapping
 	public ResponseEntity<LoanDTO> insert(@RequestBody LoanGetDTO dto){
-		LoanDTO userDTO = service.save(dto);
+		LoanDTO loanDTO = service.save(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(userDTO.getId()).toUri();
+				.buildAndExpand(loanDTO.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(userDTO);
+		return ResponseEntity.created(uri).body(loanDTO);
 		
 	}
 	
