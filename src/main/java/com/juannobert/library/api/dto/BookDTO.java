@@ -20,6 +20,8 @@ public class BookDTO implements Serializable{
 
 	private Set<CategoryDTO> categories = new HashSet<>();
 
+	public BookDTO() {
+	}
 	public BookDTO(Long id, String name, String publishingCompany, Long authorId) {
 		this.id = id;
 		this.name = name;

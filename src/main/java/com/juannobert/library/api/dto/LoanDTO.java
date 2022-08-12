@@ -13,9 +13,9 @@ public class LoanDTO implements Serializable{
 
 	private Long id;
 
-	private Date deliveryDate;
+	//private Date deliveryDate;
 
-	private Date returnDate;
+	//private Date returnDate;
 
 	private List<BookDTO> books = new ArrayList<>();
 
@@ -26,15 +26,11 @@ public class LoanDTO implements Serializable{
 
 	public LoanDTO(Long id, Date deliveryDate, Date returnDate, Long userId) {
 		this.id = id;
-		this.deliveryDate = deliveryDate;
-		this.returnDate = returnDate;
 		this.userId = userId;
 	}
 	
 	public LoanDTO(Loan entity) {
 		this.id = entity.getId();
-		this.deliveryDate = entity.getDeliveryDate();
-		this.returnDate = entity.getReturnDate();
 		this.userId = entity.getUser().getId();
 	}
 	
@@ -52,21 +48,6 @@ public class LoanDTO implements Serializable{
 		this.id = id;
 	}
 
-	public Date getDeliveryDate() {
-		return deliveryDate;
-	}
-
-	public void setDeliveryDate(Date deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
-
-	public Date getReturnDate() {
-		return returnDate;
-	}
-
-	public void setReturnDate(Date returnDate) {
-		this.returnDate = returnDate;
-	}
 
 	public Long getUserId() {
 		return userId;
