@@ -9,6 +9,6 @@ public class WebSecurityConfig {
 
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().antMatchers("/**");
+		return (web) -> web.ignoring().antMatchers("/actuator/**");
 	}
 }
