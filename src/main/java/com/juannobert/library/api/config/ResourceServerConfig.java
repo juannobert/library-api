@@ -27,7 +27,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	public static final String[] PUBLIC = {"/books/**"};
 	
-	public static final String[] OPERATOR_OR_ADMIN = {"/loans/**","/books/**","/authors/**"};
+	public static final String[] OPERATOR_OR_ADMIN = {"/loans/**","/books/**","/authors/**","users/profile"};
 	
 	public static final String[] OPERATOR_GET = {"/users/**"};
 	

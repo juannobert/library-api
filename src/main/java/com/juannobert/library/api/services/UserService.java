@@ -27,6 +27,7 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 	
 	
