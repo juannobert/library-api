@@ -30,7 +30,7 @@ public class BookService {
 	@Transactional(readOnly = true)
 	public Page<BookDTO> findAllPaged(Pageable pageable){
 		Page<Book> page = repository.findAll(pageable);
-		return page.map(x -> new BookDTO(x));
+		return page.map(x -> new BookDTO(x,x.getCategories()));
 	}
 	
 	@Transactional
@@ -38,7 +38,7 @@ public class BookService {
 		Book entity = new Book();
 		copyToEntity(entity, dto);
 		entity = repository.save(entity);
-		return new BookDTO(entity);
+		return new BookDTO(entity,entity.getCategories());
 	}
 	
 	private void copyToEntity(Book entity,BookDTO dto) {
