@@ -21,7 +21,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	@Autowired
 	private JwtTokenStore tokenStore;
-	public static final String[] PUBLIC = {"/oauth/token","/h2-console/**","/books/**"};
+	
+	
+	public static final String[] SYSTEM = {"/h2-console/**","/oauth/token"};
+	
+	public static final String[] PUBLIC = {"/books/**"};
 	
 	public static final String[] OPERATOR_OR_ADMIN = {"/loans/**","/books/**","/authors/**"};
 	
@@ -40,6 +44,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 			http.headers().frameOptions().disable(); 
 		}
 		http.authorizeRequests()
+		.antMatchers(SYSTEM).permitAll()
 		.antMatchers(HttpMethod.GET,PUBLIC).permitAll()
 		.antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).authenticated()
 		.antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN") 
