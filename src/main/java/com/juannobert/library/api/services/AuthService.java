@@ -26,6 +26,12 @@ public class AuthService {
 		}
 	}
 	
-	
+	public boolean isOnlyClient() {
+		User user = authenticated();
+		if(!user.hasRole("ROLE_OPERATOR") & !user.hasRole("ROLE_ADMIN")) 
+			return true;
+		
+		return false;
+	}
 	
 }

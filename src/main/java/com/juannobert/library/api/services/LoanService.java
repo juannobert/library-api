@@ -14,6 +14,7 @@ import com.juannobert.library.api.dto.LoanDTO;
 import com.juannobert.library.api.dto.LoanGetDTO;
 import com.juannobert.library.api.entities.Book;
 import com.juannobert.library.api.entities.Loan;
+import com.juannobert.library.api.entities.User;
 import com.juannobert.library.api.repositories.BookRepository;
 import com.juannobert.library.api.repositories.LoanRepository;
 import com.juannobert.library.api.repositories.UserRepository;
@@ -30,12 +31,23 @@ public class LoanService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private AuthService authService;
+	
 	@Transactional(readOnly = true)
 	public List<LoanGetDTO> findAll(){
-		List<Loan> list = repository.findAll();
-		return list.stream()
+		User user = authService.authenticated();
+		List<Loan> listUser = repository.findByUser(user);
+		if(authService.isOnlyClient()) {
+			return listUser.stream()
 				.map(x -> new LoanGetDTO(x,x.getBooks(),x.getDeliveryDate(),x.getReturnDate()))
 				.collect(Collectors.toList());
+		}		
+		List<Loan> listAll = repository.findAll();
+		return listAll.stream()
+				.map(x -> new LoanGetDTO(x,x.getBooks(),x.getDeliveryDate(),x.getReturnDate()))
+				.collect(Collectors.toList());
+		
 	}
 	
 	@Transactional
@@ -46,6 +58,7 @@ public class LoanService {
 		return new LoanGetDTO(entity,entity.getBooks(),entity.getDeliveryDate(),entity.getReturnDate());
 		
 	}
+	
 	
 	private void copyToEntity(LoanDTO dto,Loan entity) {
 		entity.setDeliveryDate(Date.valueOf(LocalDate.now()));
