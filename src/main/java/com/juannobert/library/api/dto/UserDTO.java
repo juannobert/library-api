@@ -2,6 +2,9 @@ package com.juannobert.library.api.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 import com.juannobert.library.api.entities.User;
 
 public class UserDTO implements Serializable{
@@ -10,8 +13,10 @@ public class UserDTO implements Serializable{
 
 	private Long id;
 	
+	@NotBlank(message = "cannot be null")
 	private String name;
 	
+	@Email(message = "Invalid email")
 	private String email;
 	
 	public UserDTO() {
