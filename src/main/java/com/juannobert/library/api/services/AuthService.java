@@ -11,7 +11,7 @@ import com.juannobert.library.api.services.exceptions.UnauthorizedException;
 
 @Service
 public class AuthService {
-
+ 
 	@Autowired
 	private UserRepository repository;
 	
@@ -25,5 +25,7 @@ public class AuthService {
 			throw new UnauthorizedException("Invalid user");
 		}
 	}
+	
+	
 	
 }

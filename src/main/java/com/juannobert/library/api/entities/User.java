@@ -93,11 +93,17 @@ public class User implements Serializable, UserDetails {
 		return roles;
 	}
 
+	public boolean hasRole(String role) {
+		return roles.stream()
+			.filter(x -> x.getAuthority().equals(role))
+			.findFirst().isPresent();
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
