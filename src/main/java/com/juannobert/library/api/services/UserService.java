@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.juannobert.library.api.dto.UserDTO;
 import com.juannobert.library.api.dto.UserInsertDTO;
 import com.juannobert.library.api.entities.User;
+import com.juannobert.library.api.repositories.RoleRepository;
 import com.juannobert.library.api.repositories.UserRepository;
 
 @Service
@@ -23,6 +24,9 @@ public class UserService implements UserDetailsService{
 	
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -51,6 +55,7 @@ public class UserService implements UserDetailsService{
 		User entity = new User();
 		BeanUtils.copyProperties(dto, entity,"id","password");
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+		entity.getRoles().add(roleRepository.findByAuthority("ROLE_CLIENT"));
 		entity = repository.save(entity);
 		return new UserDTO(entity);
 		
