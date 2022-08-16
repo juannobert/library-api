@@ -27,6 +27,8 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private AuthService authService;
 	
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 	
@@ -35,6 +37,13 @@ public class UserService implements UserDetailsService{
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
 		Page<User> page = repository.findAll(pageable);
 		return page.map(x -> new UserDTO(x));
+	}
+	
+	
+	@Transactional(readOnly = true)
+	public UserDTO userProfileActive() {
+		User user = authService.authenticated();
+		return new UserDTO(user);
 	}
 	
 	@Transactional
@@ -57,6 +66,9 @@ public class UserService implements UserDetailsService{
 		logger.info("User found: " + username);
 		return user;
 	}
+	
+	
+	
 	
 	
 	

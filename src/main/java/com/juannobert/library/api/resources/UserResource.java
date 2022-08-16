@@ -39,5 +39,11 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(userDTO);
 		
 	}
+	
+	@GetMapping("/profile")
+	public ResponseEntity<UserDTO> profileActive(){
+		UserDTO dto = service.userProfileActive();
+		return ResponseEntity.ok(dto);
+	}
 
 }
