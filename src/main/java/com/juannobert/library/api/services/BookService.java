@@ -17,6 +17,7 @@ import com.juannobert.library.api.entities.Category;
 import com.juannobert.library.api.repositories.AuthorRepository;
 import com.juannobert.library.api.repositories.BookRepository;
 import com.juannobert.library.api.repositories.CategoryRepository;
+import com.juannobert.library.api.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class BookService {
@@ -43,6 +44,14 @@ public class BookService {
 		copyToEntity(entity, dto);
 		entity = repository.save(entity);
 		return new BookDTO(entity,entity.getCategories());
+	}
+	
+	@Transactional(readOnly = true)
+	public BookDTO findById(Long id) {
+		Book entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Book not found"));
+		return new BookDTO(entity);
+		
 	}
 	
 	private void copyToEntity(Book entity,BookDTO dto) {
