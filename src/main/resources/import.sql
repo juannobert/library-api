@@ -28,6 +28,7 @@ INSERT INTO tb_book_category (book_id, category_id) VALUES (1, 2);
 INSERT INTO tb_book_category (book_id, category_id) VALUES (2, 1);
 INSERT INTO tb_book_category (book_id, category_id) VALUES (2, 3);
 INSERT INTO tb_book_category (book_id, category_id) VALUES (3, 3);
+INSERT INTO tb_book_category (book_id, category_id) VALUES (4, 2);
 
 INSERT INTO tb_loan (delivery_date,return_date,user_id) VALUES ('2022-08-08','2022-08-25',1);
 INSERT INTO tb_loan (delivery_date,return_date,user_id) VALUES ('2022-08-08','2022-08-25',2);

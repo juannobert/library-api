@@ -37,8 +37,8 @@ public class LoanService {
 	@Transactional(readOnly = true)
 	public List<LoanGetDTO> findAll(){
 		User user = authService.authenticated();
-		List<Loan> listUser = repository.findByUser(user);
 		if(authService.isOnlyClient()) {
+			List<Loan> listUser = repository.findByUser(user);
 			return listUser.stream()
 				.map(x -> new LoanGetDTO(x,x.getBooks(),x.getDeliveryDate(),x.getReturnDate()))
 				.collect(Collectors.toList());

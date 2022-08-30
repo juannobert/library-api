@@ -1,5 +1,8 @@
 package com.juannobert.library.api.services;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,8 +31,9 @@ public class BookService {
 	private CategoryRepository categoryRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<BookDTO> findAllPaged(Pageable pageable){
-		Page<Book> page = repository.findAll(pageable);
+	public Page<BookDTO> findAllPaged(Long categoryId,String name,Pageable pageable){
+		List<Category> categories = (categoryId == 0 ? null : Arrays.asList(categoryRepository.getReferenceById(categoryId)));
+		Page<Book> page = repository.find(categories,name,pageable);
 		return page.map(x -> new BookDTO(x,x.getCategories()));
 	}
 	
